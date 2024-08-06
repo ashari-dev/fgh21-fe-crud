@@ -4,30 +4,30 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 function FormEdit() {
   const [data, setData] = useState({});
-  const [newName, setNewName] = useState("");
+  const [newUsername, setNewUsername] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const id = useParams();
 
-  const nav = useNavigate()
+  const nav = useNavigate();
 
   useEffect(() => {
     (async () => {
       const data = await axios.get("http://localhost:8888/users/" + id.id);
       setData(data.data.results);
       setNewEmail(data.data.results.email);
-      setNewName(data.data.results.name);
+      setNewUsername(data.data.results.username);
       setNewPassword(data.data.results.password);
     })();
   }, []);
   async function editData(e) {
     e.preventDefault();
     await axios.patch("http://localhost:8888/users/" + id.id, {
-      name: newName,
+      username: newUsername,
       email: newEmail,
       password: newPassword,
     });
-    nav('/')
+    nav("/");
   }
   return (
     <div className="flex flex-col items-center justify-center gap-10">
@@ -37,17 +37,17 @@ function FormEdit() {
       </Link>
       <form onSubmit={editData} className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
-          <label htmlFor="name" className="text-lg font-semibold">
-            Name
+          <label htmlFor="username" className="text-lg font-semibold">
+            Username
           </label>
           <input
             type="text"
-            name="name"
-            id="name"
-            placeholder="Input name"
+            name="username"
+            id="username"
+            placeholder="Input Username"
             className="border p-2 rounded-md w-[350px] outline-none"
-            defaultValue={data.name}
-            onChange={(e) => setNewName(e.target.value)}
+            defaultValue={data.username}
+            onChange={(e) => setNewUsername(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-2">

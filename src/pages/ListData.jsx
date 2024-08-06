@@ -12,17 +12,17 @@ function ListData() {
   function toEdit(id) {
     nav("/edit/" + id);
   }
-  async function showData()  {
-    const data = await axios.get(endpoint + "/users");
+  async function showData() {
+    const data = await axios.get(endpoint + "/users/");
     setData(data.data.results);
   }
   useEffect(() => {
     showData();
-  }, [])
+  }, []);
 
   async function remove(id) {
     await axios.delete(endpoint + "/users/" + id);
-    showData()
+    showData();
   }
 
   return (
@@ -37,7 +37,7 @@ function ListData() {
         <thead className="">
           <tr>
             <th className="p-3 border">ID</th>
-            <th className="p-3 border">Name</th>
+            <th className="p-3 border">Username</th>
             <th className="p-3 border">Email</th>
             <th className="p-3 border">Action</th>
           </tr>
@@ -47,7 +47,7 @@ function ListData() {
             return (
               <tr key={item.id}>
                 <td className="border p-2 ">{item.id}</td>
-                <td className="border p-2 ">{item.name}</td>
+                <td className="border p-2 ">{item.username}</td>
                 <td className="border p-2 ">{item.email}</td>
                 <td className="border p-2 ">
                   <div className="flex gap-2">

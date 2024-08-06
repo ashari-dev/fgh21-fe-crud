@@ -8,12 +8,12 @@ function FormAdd() {
   const nav = useNavigate();
   const formix = useFormik({
     initialValues: {
-      fullName: "",
+      username: "",
       email: "",
       password: "",
     },
     validationSchema: yup.object({
-      fullName: yup
+      username: yup
         .string()
         .required("Required !")
         .min(2, "Minimal 2 characters"),
@@ -30,14 +30,14 @@ function FormAdd() {
 
   async function addData(e) {
     e.preventDefault();
-    const name = e.target.fullName.value;
+    const username = e.target.username.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    await axios.post("http://localhost:8888/users", {
-      name,
-      email,
-      password,
+    await axios.post("http://localhost:8888/users/", {
+      username: username,
+      email: email,
+      password: password,
     });
 
     nav("/");
@@ -50,19 +50,19 @@ function FormAdd() {
       </Link>
       <form onSubmit={addData} className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
-          <label htmlFor="fullName" className="text-lg font-semibold">
-            Name
+          <label htmlFor="username" className="text-lg font-semibold">
+            Username
           </label>
-          {formix.errors.fullName && (
-            <p className="text-red-600">{formix.errors.fullName}</p>
+          {formix.errors.username && (
+            <p className="text-red-600">{formix.errors.username}</p>
           )}
 
           <input
             type="text"
-            name="fullName"
-            id="fullName"
-            placeholder="Input fullname"
-            value={formix.values.fullName}
+            name="username"
+            id="username"
+            placeholder="Input username"
+            value={formix.values.username}
             onChange={formix.handleChange}
             className="border p-2 rounded-md w-[350px] outline-none"
           />
